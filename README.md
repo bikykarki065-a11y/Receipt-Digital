@@ -23,7 +23,7 @@ To run the live interactive visualizer server environment on your machine local 
 
 ### 1. Clone this Repository
 ```bash
-git clone https://github.com
+git clone https://github.com/bikykarki065-a11y/Receipt-Digital
 cd Receipt-Digital
 ```
 
