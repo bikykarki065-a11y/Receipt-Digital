@@ -197,7 +197,7 @@
 .receipt-brand { height: 149px; padding: 13px 15px 11px; color: var(--brand-ink); background: var(--brand-gradient); border-radius: 3px; position: relative; }
 .brand-topline, .brand-bottomline { display: flex; justify-content: space-between; align-items: center; }
 .brand-topline span { font: 7px var(--font-mono); opacity: .75; }
-.receipt-brand h2 { font-size: 32px; font-weight: 650; line-height: 1.04; margin: 10px 0 15px; }
+.receipt-brand h2 { font-size: 30px; font-weight: 650; line-height: 1.04; margin: 10px 0 15px; max-width: 190px; overflow-wrap: anywhere; }
 .receipt-brand h2 span { font-weight: 450; }
 .brand-bottomline { font: 6px var(--font-mono); }
 .receipt-body { padding: 0 9px; position: relative; font-family: var(--font-mono); }
@@ -250,3 +250,36 @@
 @media (max-width: 460px) { .printer-scene { width: 340px; height: 605px; } .paper-viewport { left: 22px; } .printer-hardware { height: 151px; } .machine-slot { margin: 0 15px; } .machine-top { padding: 0 24px; } .machine-base { padding-left: 24px; padding-right: 24px; } .floor-shadow { left: 55px; } .control-area { margin-top: 18px; } .control-dock { height: 59px; padding: 6px 9px; } .dock-button { padding: 0 13px; font-size: 8px; gap: 8px; } .studio-header { padding: 0 20px; } .header-status { font-size: 6px; gap: 5px; } }
 @media (max-width: 360px) { .printer-scene { width: 300px; } .paper-viewport { left: 2px; } .studio-logo { font-size: 15px; } .header-status { display: none; } .dock-button { padding: 0 11px; } }
 @media (prefers-reduced-motion: reduce) { .printing .paper-motion { animation: none; } .torn .paper-motion { animation: none; opacity: 0; } .is-printing { animation: none; } }
+
+.printer-scene { height: max(614px, calc(var(--receipt-height, 510px) + 115px)); }
+.paper-viewport { height: calc(var(--receipt-height, 510px) + 27px); }
+.receipt-brand { height: auto; min-height: 149px; }
+.brand-bottomline { gap: 8px; }
+.brand-bottomline span, .item-name { overflow-wrap: anywhere; }
+.receipt-actions { display: flex; align-items: center; gap: 5px; margin-top: -6px; }
+.receipt-action { font-size: 10px; color: var(--muted-foreground); height: 44px; padding: 0 15px; }
+.receipt-action[aria-pressed="true"] { color: var(--primary); background: var(--accent); }
+.receipt-action svg { width: 13px; height: 13px; }
+.export-status { font: 8px var(--font-mono); color: var(--success); }
+.dock-button { touch-action: manipulation; min-width: 96px; transition: background .16s, box-shadow .16s, transform .12s, opacity .16s; }
+.dock-button:active:not(:disabled) { background: var(--accent); box-shadow: inset 0 2px 4px color-mix(in oklab, var(--shadow-ink) 13%, transparent); transform: scale(.94); }
+.dock-button:disabled { opacity: .35; background: color-mix(in oklab, var(--muted) 55%, transparent); }
+.dock-button[aria-pressed="true"] { color: var(--success); background: var(--success-wash); }
+.receipt-editor { position: fixed; top: 110px; right: 24px; bottom: 30px; width: 320px; max-height: 900px; overflow-y: auto; z-index: 10; background: color-mix(in oklab, var(--card) 95%, transparent); backdrop-filter: blur(24px); border: 1px solid var(--border); border-radius: 8px; box-shadow: var(--dock-shadow); padding: 22px; }
+.editor-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+.editor-heading h2 { font-size: 21px; font-weight: 550; margin-top: 5px; }
+.editor-field { display: flex; flex-direction: column; gap: 7px; color: var(--muted-foreground); font-size: 10px; margin-bottom: 16px; min-width: 0; }
+.editor-field input { color: var(--foreground); background: var(--background); border: 1px solid var(--border); border-radius: 4px; min-width: 0; width: 100%; height: 40px; font-size: 12px; padding: 0 10px; outline: none; }
+.editor-field input:focus-visible { border-color: var(--primary); box-shadow: 0 0 0 2px color-mix(in oklab, var(--primary) 15%, transparent); }
+.editor-colors { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.editor-field input[type="color"] { padding: 5px; cursor: pointer; }
+.editor-section-title { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 10px; margin-bottom: 10px; }
+.editor-section-title h3 { font-size: 12px; font-weight: 600; }
+.editor-item { border-bottom: 1px dashed var(--border); margin-bottom: 16px; }
+.editor-item-numbers { display: grid; grid-template-columns: 60px 1fr 36px; align-items: end; gap: 10px; }
+.editor-item-numbers > button { margin-bottom: 17px; }
+.editor-total { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 20px; }
+.editor-reset { width: 100%; font-size: 11px; }
+@media (min-width: 1150px) { .editor-open .workspace { margin-right: 310px; } .editor-open .scene-label-right { display: none; } .editor-open .scene-label-left { right: calc(100% + 25px); width: 140px; } }
+@media (max-width: 1149px) { .receipt-editor { position: relative; inset: auto; width: min(420px, calc(100% - 40px)); max-height: none; align-self: center; order: 2; margin: 0 0 30px; } .editor-open .studio-footer { order: 3; } }
+@media (max-width: 460px) { .dock-button { min-width: 91px; } }
