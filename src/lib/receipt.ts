@@ -28,7 +28,7 @@ export async function exportReceipt(data: ReceiptData) {
     if (!colorContext) return [40, 40, 40] as const;
     colorContext.fillStyle = token; colorContext.fillRect(0, 0, 1, 1);
     const pixel = colorContext.getImageData(0, 0, 1, 1).data;
-    return [pixel[0], pixel[1], pixel[2]] as const;
+    return [pixel[0] ?? 40, pixel[1] ?? 40, pixel[2] ?? 40] as const;
   };
   doc.setTextColor(...rgb(getComputedStyle(document.documentElement).getPropertyValue("--brand-ink")));
   doc.setFont("helvetica", "bold"); doc.setFontSize(20);
@@ -43,7 +43,7 @@ export async function exportReceipt(data: ReceiptData) {
   doc.text("ARTISAN COFFEE ROASTERS", 40, y, { align: "center" }); y += 7;
   const rule = () => { doc.setDrawColor(...rgb(ink)); doc.setLineWidth(.15); doc.setLineDashPattern([1, 1], 0); doc.line(8, y, 72, y); y += 7; };
   rule();
-  for (const [label, value] of [["ORDER", "#CR-8429"], ["DATE", "Oct 08, 09:01 PM"], ["CASHIER", "Alex R."], ["STATUS", "PAID"]]) {
+  for (const [label, value] of [["ORDER", "#CR-8429"], ["DATE", "Oct 08, 09:01 PM"], ["CASHIER", "Alex R."], ["STATUS", "PAID"]] as const) {
     doc.text(label, 8, y); doc.text(value, 72, y, { align: "right" }); y += 5;
   }
   rule(); doc.text("QTY / DESCRIPTION", 8, y); doc.text("AMT", 72, y, { align: "right" }); y += 7;
@@ -56,6 +56,12 @@ export async function exportReceipt(data: ReceiptData) {
   doc.setFontSize(14); doc.text(`$${receiptTotal(data).toFixed(2)}`, 72, y, { align: "right" }); y += 12;
   doc.setFont("courier", "normal"); doc.setFontSize(7); doc.text("A little pick-me-up.", 40, y, { align: "center" }); y += 5;
   doc.text("Thanks for stopping by.", 40, y, { align: "center" });
+  y += 7;
+  doc.setFillColor(...rgb(ink));
+  for (let i = 0; i < 40; i++) {
+    doc.rect(19 + i * 1.05, y, i % 3 === 0 ? .65 : .3, 7, "F");
+  }
+  doc.setFontSize(5); doc.text("8 4 2 9 0 0 1 7 5 0", 40, y + 10, { align: "center" });
   doc.setProperties({ title: `${data.brand} — Receipt #CR-8429`, subject: "80 mm print-ready receipt", creator: "Receipt Studio" });
   doc.save("receipt-CR-8429.pdf");
 }
