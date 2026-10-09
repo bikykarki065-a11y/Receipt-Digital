@@ -13,4 +13,4 @@
 - Keep the receipt interaction in a browser-safe dedicated component rendered by the index route; audio initializes only after a user action to preserve SSR compatibility.
 - Define receipt materials, hardware lighting, and print/tear keyframes through semantic global CSS tokens; the app uses Tailwind v4 rather than uploaded v3 configuration.
 - Keep editable receipt data and total calculation shared between the live receipt and browser-generated vector PDF; unit price multiplied by quantity determines each line amount, with an optional total override.
-- Receipt edits are session-only frontend state; do not add persistence or backend services unless requested.
+- Receipt edits and undo/redo history are session-only frontend state; named presets persist only in browser localStorage, with no backend unless requested.

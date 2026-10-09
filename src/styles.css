@@ -291,3 +291,12 @@
   .editor-heading button, .editor-section-title button, .editor-item-numbers button { width: 44px; height: 44px; }
   .editor-item-numbers { grid-template-columns: 60px 1fr 44px; }
 }
+.editor-history { display: flex; gap: 2px; }
+.editor-presets { border-top: 1px solid var(--border); padding: 12px 0 6px; margin-bottom: 8px; }
+.editor-presets h3 { font-size: 12px; font-weight: 600; margin-bottom: 10px; }
+.preset-row { display: flex; gap: 6px; margin-bottom: 8px; }
+.preset-row input, .preset-row select { flex: 1; min-width: 0; height: 40px; color: var(--foreground); background: var(--background); border: 1px solid var(--border); border-radius: 4px; font-size: 12px; padding: 0 10px; }
+.preset-row input:focus-visible, .preset-row select:focus-visible { outline: none; border-color: var(--primary); }
+.preset-row > button { height: 40px; }
+.preset-status { font: 9px var(--font-mono); color: var(--success); }
+@media (max-width: 760px) { .preset-row input, .preset-row select { font-size: 16px; height: 44px; } .preset-row > button { height: 44px; } }
