@@ -1,4 +1,4 @@
- 🖨️ ReceiptFlow Pro — Digital Receipt Studio
+# 🖨️ ReceiptFlow Pro — Digital Receipt Studio
 
 An interactive, responsive thermal receipt printer micro-interaction component built with **React**, **Tailwind CSS**, and **Framer Motion**. This application replicates a live mechanical dispenser terminal dashboard equipped with dual-body separation physics animations, realistic ambient mechanical sound toggles, and modal transaction summary overlays.
 
@@ -8,6 +8,7 @@ An interactive, responsive thermal receipt printer micro-interaction component b
 * 📋 **Collected Ledger Presentation Overlay**: Detaching the receipt instantly triggers a fluid glass-morphic modal summary dashboard reviewing dynamic line-item totals, taxes, and subtotal arrays.
 * 🔊 **Capsule Controller Operational Panel**: Rounded capsule button pill structures allowing seamless controls for `RE-PRINT`, `TEAR Paper`, `+ FEED`, `RESET`, and an active audio mute toggle pipeline.
 
+---
 
 ## 🛠️ Built With
 This workspace environment template structure was completely compiled and published via:
@@ -15,22 +16,24 @@ This workspace environment template structure was completely compiled and publis
 * **Vite** — High-performance modern local module environment runner pipeline.
 * **Tailwind CSS** — Declarative custom matrix utilities and drop-shadows framework configuration layers.
 
+---
+
 ## 💻 Local Testing & Setup
 To run the live interactive visualizer server environment on your machine local hosting nodes:
 
 ### 1. Clone this Repository
-Bash
+```bash
 git clone https://github.com
 cd Receipt-Digital
-
+```
 
 ### 2. Install Project Dependencies
-Bash
+```bash
 npm install
-
+```
 
 ### 3. Start the Live Dev Server
-Bash
+```bash
 npm run dev
-
+```
 Open your browser tab link pointing toward `http://localhost:5173` to test the printing micro-interactions dashboard!
