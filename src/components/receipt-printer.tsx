@@ -53,6 +53,9 @@ export function ReceiptPrinter() {
   const [exporting, setExporting] = useState(false);
   const [exportStatus, setExportStatus] = useState("");
   const [paperHeight, setPaperHeight] = useState(510);
+  const [past, setPast] = useState<ReceiptData[]>([]);
+  const [future, setFuture] = useState<ReceiptData[]>([]);
+  const lastEdit = useRef(0);
   const paperRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const paper = paperRef.current?.querySelector("article");
@@ -105,10 +108,30 @@ export function ReceiptPrinter() {
     finally { setExporting(false); }
   }
 
-  function editReceipt(next: ReceiptData) {
+  function show(next: ReceiptData) {
     setData(next); setExportStatus("");
     if (timer.current) clearTimeout(timer.current);
     setState("printed");
+  }
+
+  function editReceipt(next: ReceiptData) {
+    const now = Date.now();
+    if (now - lastEdit.current > 700) setPast((items) => [...items.slice(-49), data]);
+    lastEdit.current = now;
+    setFuture([]);
+    show(next);
+  }
+
+  function undo() {
+    const previous = past.at(-1);
+    if (!previous) return;
+    setPast(past.slice(0, -1)); setFuture([data, ...future]); lastEdit.current = 0; show(previous);
+  }
+
+  function redo() {
+    const next = future[0];
+    if (!next) return;
+    setFuture(future.slice(1)); setPast([...past, data]); lastEdit.current = 0; show(next);
   }
 
   return (
@@ -149,7 +172,7 @@ export function ReceiptPrinter() {
         </div>
       </main>
       <footer className="studio-footer"><span>A LITTLE ANALOG IN A DIGITAL WORLD.</span><span>DESIGNED TO FEEL SOMETHING <span className="footer-spark">✳</span></span></footer>
-      {editing && <ReceiptEditor data={data} onChange={editReceipt} onClose={() => setEditing(false)} />}
+      {editing && <ReceiptEditor data={data} onChange={editReceipt} onClose={() => setEditing(false)} onUndo={undo} onRedo={redo} canUndo={past.length > 0} canRedo={future.length > 0} />}
     </div>
   );
 }
