@@ -8,3 +8,7 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+## Application architecture
+- Keep the receipt interaction in a browser-safe dedicated component rendered by the index route; audio initializes only after a user action to preserve SSR compatibility.
+- Define receipt materials, hardware lighting, and print/tear keyframes through semantic global CSS tokens; the app uses Tailwind v4 rather than uploaded v3 configuration.
