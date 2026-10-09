@@ -172,7 +172,7 @@ export function ReceiptPrinter() {
         </div>
       </main>
       <footer className="studio-footer"><span>A LITTLE ANALOG IN A DIGITAL WORLD.</span><span>DESIGNED TO FEEL SOMETHING <span className="footer-spark">✳</span></span></footer>
-      {editing && <ReceiptEditor data={data} onChange={editReceipt} onClose={() => setEditing(false)} />}
+      {editing && <ReceiptEditor data={data} onChange={editReceipt} onClose={() => setEditing(false)} onUndo={undo} onRedo={redo} canUndo={past.length > 0} canRedo={future.length > 0} />}
     </div>
   );
 }
